@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Security: only allow our own scripts/styles and the one API we call -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; connect-src https://api.pwnedpasswords.com; style-src 'self'; script-src 'self'">
+  <title>SafePass – Password Checker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>SafePass</h1>
+    <p class="intro">Check if a password has appeared in a known data breach. Your password never leaves your browser.</p>
+ 
+    <label for="pw">Password</label>
+    <div class="row">
+      <input id="pw" type="password" autocomplete="off" spellcheck="false" placeholder="Type a password to test">
+      <button id="toggle" type="button" class="secondary">Show</button>
+    </div>
+ 
+    <div class="meter" aria-hidden="true"><div id="bar"></div></div>
+    <p id="strength" aria-live="polite"></p>
+ 
+    <button id="check" type="button">Check for breaches</button>
+    <p id="result" role="status" aria-live="polite"></p>
+ 
+    <hr>
+ 
+    <h2>Need a strong one?</h2>
+    <div class="row">
+      <input id="gen-out" type="text" readonly aria-label="Generated password">
+      <button id="gen" type="button" class="secondary">Generate</button>
+    </div>
+ 
+    <details>
+      <summary>How does this stay private?</summary>
+      <p>Your password is hashed (SHA-1) in your browser. Only the first 5 characters of the hash are sent to the
+      <a href="https://haveibeenpwned.com/API/v3#PwnedPasswords" target="_blank" rel="noopener">Have I Been Pwned</a>
+      API, which returns every hash starting with those 5 characters. The final match happens on your device. This technique is called k-anonymity.</p>
+    </details>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
