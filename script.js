@@ -119,3 +119,16 @@ function generatePassword(length = 16) {
 $("gen").addEventListener("click", () => {
   $("gen-out").value = generatePassword(16);
 });
+
+$("copy").addEventListener("click", async () => {
+  const pw = $("gen-out").value;
+  if (!pw) return; // nothing to copy yet
+  try {
+    await navigator.clipboard.writeText(pw);
+    setTimeout(() => navigator.clipboard.writeText(""), 30000);
+    $("copy").textContent = "Copied!";
+  } catch (err) {
+    $("copy").textContent = "Failed";
+  }
+  setTimeout(() => ($("copy").textContent = "Copy"), 1500);
+});
